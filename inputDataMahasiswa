@@ -1,0 +1,274 @@
+package com.mycompany.modul8pbol;
+
+import java.awt.Color;
+import java.awt.EventQueue;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.BorderFactory;
+import javax.swing.GroupLayout;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.JTextField;
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
+import javax.swing.GroupLayout.Alignment;
+import javax.swing.LayoutStyle.ComponentPlacement;
+import javax.swing.UIManager.LookAndFeelInfo;
+import javax.swing.table.DefaultTableModel;
+
+public class InputDataMhs extends JFrame {
+   private List<Mhs> daftarMahasiswa = new ArrayList();
+   private JTextField fieldNIM;
+   private JTextField fieldNama;
+   private JLabel jLabel1;
+   private JLabel jLabel2;
+   private JPanel jPanel1;
+   private JPanel jPanel2;
+   private JScrollPane jScrollPane1;
+   private JTable tblListMhs;
+   private JButton tblBatal;
+   private JButton tblHapus;
+   private JButton tblExit;
+   private JButton tblAdd;
+
+   public InputDataMhs() {
+      this.initKomponen();
+      this.simpanData();
+      this.refreshTable();
+      this.tblHapus.setEnabled(false);
+   }
+
+   public void simpanData() {
+      this.daftarMahasiswa.add(new Mhs("175314077", "Agus"));
+      this.daftarMahasiswa.add(new Mhs("175314045", "Ardy"));
+      this.daftarMahasiswa.add(new Mhs("175314034",	"Budi"));
+      this.daftarMahasiswa.add(new Mhs("175314001",	"Rendy"));
+      this.daftarMahasiswa.add(new Mhs("175314022",	"Ani"));
+      this.daftarMahasiswa.add(new Mhs("175314034",	"Aan"));
+      this.daftarMahasiswa.add(new Mhs("175314033",	"Andini"));
+      this.daftarMahasiswa.add(new Mhs("175314098",	"Bernard"));
+   }
+
+   private void refreshTable() {
+      try {
+         TabelModelMhs model = new TabelModelMhs(this.daftarMahasiswa);
+         this.tblListMhs.setModel(model);
+      } catch (Exception var2) {
+         JOptionPane.showMessageDialog(this, "Data gagal ditampilkan");
+      }
+
+   }
+
+   private void initKomponen() {
+      this.jPanel1 = new JPanel();
+      this.jLabel1 = new JLabel();
+      this.jLabel2 = new JLabel();
+      this.tblAdd = new JButton();
+      this.tblHapus = new JButton();
+      this.tblBatal = new JButton();
+      this.tblExit = new JButton();
+      this.fieldNIM = new JTextField();
+      this.fieldNama = new JTextField();
+      this.jPanel2 = new JPanel();
+      this.jScrollPane1 = new JScrollPane();
+      this.tblListMhs = new JTable();
+      this.setDefaultCloseOperation(3);
+      this.setTitle("List Mhs");
+      this.jPanel1.setBorder(BorderFactory.createTitledBorder(BorderFactory.createEtchedBorder(), "Input Data"));
+      this.jLabel1.setText("NIM");
+      this.jLabel2.setText("Nama");
+      this.tblAdd.setText("Tambah");
+      this.tblAdd.addActionListener(new ActionListener() {
+         public void actionPerformed(ActionEvent evt) {
+            InputDataMhs.this.tombolTambahActionPerformed(evt);
+         }
+      });
+      this.tblHapus.setText("Hapus");
+      this.tblHapus.addActionListener(new ActionListener() {
+         public void actionPerformed(ActionEvent evt) {
+            InputDataMhs.this.tombolHapusActionPerformed(evt);
+         }
+      });
+      this.tblBatal.setText("Batal");
+      this.tblBatal.addActionListener(new ActionListener() {
+         public void actionPerformed(ActionEvent evt) {
+            InputDataMhs.this.tombolBatalActionPerformed(evt);
+         }
+      });
+      this.tblExit.setText("Keluar");
+      this.tblExit.addActionListener(new ActionListener() {
+         public void actionPerformed(ActionEvent evt) {
+            InputDataMhs.this.tombolKeluarActionPerformed(evt);
+         }
+      });
+      this.fieldNama.addKeyListener(new KeyAdapter() {
+         public void keyReleased(KeyEvent evt) {
+            InputDataMhs.this.fieldNamaKeyReleased(evt);
+         }
+      });
+      GroupLayout jPanel1Layout = new GroupLayout(this.jPanel1);
+      this.jPanel1.setLayout(jPanel1Layout);
+      jPanel1Layout.setHorizontalGroup(jPanel1Layout.createParallelGroup(Alignment.LEADING).addGroup(jPanel1Layout.createSequentialGroup().addGap(23, 23, 23).addGroup(jPanel1Layout.createParallelGroup(Alignment.LEADING, false).addComponent(this.jLabel1, -1, -1, 32767).addComponent(this.jLabel2, -1, -1, 32767)).addPreferredGap(ComponentPlacement.UNRELATED).addGroup(jPanel1Layout.createParallelGroup(Alignment.LEADING, false).addGroup(jPanel1Layout.createSequentialGroup().addComponent(this.tblAdd).addPreferredGap(ComponentPlacement.RELATED).addComponent(this.tblHapus).addPreferredGap(ComponentPlacement.RELATED).addComponent(this.tblBatal).addPreferredGap(ComponentPlacement.RELATED).addComponent(this.tblExit)).addComponent(this.fieldNama).addComponent(this.fieldNIM, -2, 106, -2)).addContainerGap(61, 32767)));
+      jPanel1Layout.setVerticalGroup(jPanel1Layout.createParallelGroup(Alignment.LEADING).addGroup(jPanel1Layout.createSequentialGroup().addContainerGap().addGroup(jPanel1Layout.createParallelGroup(Alignment.BASELINE).addComponent(this.jLabel1).addComponent(this.fieldNIM, -2, -1, -2)).addPreferredGap(ComponentPlacement.RELATED).addGroup(jPanel1Layout.createParallelGroup(Alignment.BASELINE).addComponent(this.jLabel2).addComponent(this.fieldNama, -2, -1, -2)).addGap(21, 21, 21).addGroup(jPanel1Layout.createParallelGroup(Alignment.BASELINE).addComponent(this.tblAdd).addComponent(this.tblHapus).addComponent(this.tblBatal).addComponent(this.tblExit)).addContainerGap(21, 32767)));
+      this.jPanel2.setBorder(BorderFactory.createTitledBorder(BorderFactory.createEtchedBorder(), "Daftar Mahasiswa"));
+      this.tblListMhs.setModel(new DefaultTableModel(new Object[][]{{null, null}, {null, null}, {null, null}, {null, null}}, new String[]{"NIM", "Nama"}));
+      this.tblListMhs.addMouseListener(new MouseAdapter() {
+         public void mouseClicked(MouseEvent evt) {
+            InputDataMhs.this.tabelDaftarMahasiswaMouseClicked(evt);
+         }
+      });
+      this.jScrollPane1.setViewportView(this.tblListMhs);
+      GroupLayout jPanel2Layout = new GroupLayout(this.jPanel2);
+      this.jPanel2.setLayout(jPanel2Layout);
+      jPanel2Layout.setHorizontalGroup(jPanel2Layout.createParallelGroup(Alignment.LEADING).addGroup(jPanel2Layout.createSequentialGroup().addContainerGap().addComponent(this.jScrollPane1, -2, 0, 32767).addContainerGap()));
+      jPanel2Layout.setVerticalGroup(jPanel2Layout.createParallelGroup(Alignment.LEADING).addGroup(jPanel2Layout.createSequentialGroup().addComponent(this.jScrollPane1, -2, 134, -2).addGap(0, 17, 32767)));
+      GroupLayout layout = new GroupLayout(this.getContentPane());
+      this.getContentPane().setLayout(layout);
+      layout.setHorizontalGroup(layout.createParallelGroup(Alignment.LEADING).addGroup(layout.createSequentialGroup().addContainerGap().addGroup(layout.createParallelGroup(Alignment.LEADING).addComponent(this.jPanel1, -1, -1, 32767).addComponent(this.jPanel2, -1, -1, 32767)).addContainerGap()));
+      layout.setVerticalGroup(layout.createParallelGroup(Alignment.LEADING).addGroup(layout.createSequentialGroup().addContainerGap().addComponent(this.jPanel1, -2, -1, -2).addPreferredGap(ComponentPlacement.UNRELATED).addComponent(this.jPanel2, -2, -1, -2).addContainerGap(-1, 32767)));
+      this.pack();
+   }
+
+   private void tombolTambahActionPerformed(ActionEvent evt) {
+      if (this.tblAdd.getText().equals("Tambah")) {
+         Mhs baru = new Mhs();
+         baru.setNim(this.fieldNIM.getText());
+         baru.setNama(this.fieldNama.getText());
+         this.daftarMahasiswa.add(baru);
+         JOptionPane.showMessageDialog(this, "Data berhasil ditambahkan");
+      } else {
+         int row = this.search(this.fieldNIM.getText());
+         ((Mhs)this.daftarMahasiswa.get(row)).setNim(this.fieldNIM.getText());
+         ((Mhs)this.daftarMahasiswa.get(row)).setNama(this.fieldNama.getText());
+         JOptionPane.showMessageDialog(this, "Data berhasil diubah");
+      }
+
+      this.clearField();
+      this.refreshTable();
+   }
+
+   public int search(String nim) {
+      for(int i = 0; i < this.daftarMahasiswa.size(); ++i) {
+         if (((Mhs)this.daftarMahasiswa.get(i)).getNim().equals(nim)) {
+            return i;
+         }
+      }
+
+      return -1;
+   }
+
+   private void tombolBatalActionPerformed(ActionEvent evt) {
+      this.clearField();
+   }
+
+   private void tombolKeluarActionPerformed(ActionEvent evt) {
+      System.exit(0);
+   }
+
+   private void tombolHapusActionPerformed(ActionEvent evt) {
+      int row = -1;
+
+      for(int i = 0; i < this.daftarMahasiswa.size(); ++i) {
+         if (((Mhs)this.daftarMahasiswa.get(i)).getNim().equals(this.fieldNIM.getText())) {
+            row = i;
+            break;
+         }
+      }
+
+      this.daftarMahasiswa.remove(row);
+      this.clearField();
+      this.refreshTable();
+      JOptionPane.showMessageDialog(this, "Data berhasil dihapus");
+   }
+
+   private void tabelDaftarMahasiswaMouseClicked(MouseEvent evt) {
+      int row = this.tblListMhs.getSelectedRow();
+      this.fieldNIM.setText(this.tblListMhs.getValueAt(row, 0).toString());
+      this.fieldNama.setText(this.tblListMhs.getValueAt(row, 1).toString());
+      this.tblHapus.setEnabled(true);
+      this.tblAdd.setText("Ubah");
+   }
+
+   private void fieldNamaKeyReleased(KeyEvent evt) {
+      List<Mhs> daftarPencarianMahasiswa = new ArrayList();
+      Iterator var3 = this.daftarMahasiswa.iterator();
+
+      while(var3.hasNext()) {
+         Mhs data = (Mhs)var3.next();
+         if (data.getNama().toLowerCase().startsWith(this.fieldNama.getText().toLowerCase())) {
+            daftarPencarianMahasiswa.add(data);
+         }
+      }
+
+      try {
+         TabelModelMhs model = new TabelModelMhs(daftarPencarianMahasiswa);
+         this.tblListMhs.setModel(model);
+      } catch (Exception var5) {
+         JOptionPane.showMessageDialog(this, "Data gagal ditampilkan");
+      }
+
+   }
+
+   private void clearField() {
+      this.fieldNIM.setText("");
+      this.fieldNama.setText("");
+      this.tblHapus.setEnabled(false);
+      this.tblAdd.setText("Tambah");
+      this.refreshTable();
+   }
+
+   public static void main(String[] args) {
+      try {
+         LookAndFeelInfo[] var1 = UIManager.getInstalledLookAndFeels();
+         int var2 = var1.length;
+
+         for(int var3 = 0; var3 < var2; ++var3) {
+            LookAndFeelInfo info = var1[var3];
+            if ("Nimbus".equals(info.getName())) {
+               UIManager.setLookAndFeel(info.getClassName());
+               break;
+            }
+         }
+         
+         UIManager.put("control", new Color(34, 139, 34));
+         UIManager.put("nimbusBase", new Color(34, 139, 34));
+         UIManager.put("nimbusBlueGrey", new Color(74,34,34));
+         UIManager.put("textForeGround", Color.WHITE); 
+         
+         UIManager.put("Table.background", new Color(0,0,0));  
+            //UIManager.put("Table.alternateRowColor", new Color(174,34,34));  
+            UIManager.put("Table.alternateRowColor", new Color(174,34,34));
+                UIManager.put("Table.foreground", Color.WHITE);  
+
+         
+      } catch (ClassNotFoundException var5) {
+         Logger.getLogger(InputDataMhs.class.getName()).log(Level.SEVERE, (String)null, var5);
+      } catch (InstantiationException var6) {
+         Logger.getLogger(InputDataMhs.class.getName()).log(Level.SEVERE, (String)null, var6);
+      } catch (IllegalAccessException var7) {
+         Logger.getLogger(InputDataMhs.class.getName()).log(Level.SEVERE, (String)null, var7);
+      } catch (UnsupportedLookAndFeelException var8) {
+         Logger.getLogger(InputDataMhs.class.getName()).log(Level.SEVERE, (String)null, var8);
+      }
+
+      EventQueue.invokeLater(new Runnable() {
+         public void run() {
+            (new InputDataMhs()).setVisible(true);
+         }
+      });
+   }
+}
